@@ -1,0 +1,43 @@
+zookeeper:
+  image: jplock/zookeeper
+  ports: 
+    - "2181:2181"
+nimbus:
+  image: gschmutz/storm-nimbus:0.10.0-beta1
+  ports:
+    - "3773:3773"
+    - "3772:3772"
+    - "6627:6627"
+  links: 
+    - zookeeper:zk
+supervisor:
+  image: gschmutz/storm-supervisor:0.10.0-beta1
+  ports:
+    - "8000:8000"
+  links: 
+    - nimbus:nimbus
+    - zookeeper:zk
+ui:
+  image: gschmutz/storm-ui:0.10.0-beta1
+  ports:
+    - "8080:8080"
+  links: 
+    - nimbus:nimbus
+    - zookeeper:zk
+kafka:
+  image: wurstmeister/kafka:0.8.2.1
+  ports:
+    - "9092:9092"
+  links:
+    - zookeeper:zk
+  environment:
+    KAFKA_ADVERTISED_HOST_NAME: 192.168.59.103
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+openfire:
+  image: mdouglas/openfire
+  ports:
+  - "5222:5222"
+  - "5223:5223"
+  - "9091:9091"
+  - "9090:9090"
