@@ -29,7 +29,7 @@ public class WordSpout extends BaseRichSpout {
 
     @Override
     public void nextTuple() {
-        Utils.sleep(100);
+        Utils.sleep(5000);
         
         final String word = words[i];
         i=(i+1)%words.length;

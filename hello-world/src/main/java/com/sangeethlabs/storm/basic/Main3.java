@@ -29,7 +29,7 @@ public class Main3 {
         builder.setBolt("exclaim1", new ExclamationBolt(), 1).shuffleGrouping("word");
         builder.setBolt("filter", new WordFilterBolt(/*The word to be filter from processing is */ "using"), 1).shuffleGrouping("exclaim1");
         builder.setBolt("exclaim2", new ExclamationBolt(), 1).shuffleGrouping("filter");
-        builder.setBolt("printer", new XmppBolt(), 1).shuffleGrouping("exclaim2");
+        builder.setBolt("notify", new XmppBolt(), 1).shuffleGrouping("exclaim2");
         return builder.createTopology();
     }
 }

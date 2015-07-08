@@ -13,19 +13,19 @@ import backtype.storm.tuple.Values;
 public class ExclamationBolt extends BaseRichBolt {
     private static final long serialVersionUID = 1L;
 
-    private OutputCollector _collector;
+    private OutputCollector collector;
 
     @Override
     public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
-        _collector = collector;
+        this.collector = collector;
     }
 
     @Override
     public void execute(Tuple tuple) {
         String word = tuple.getStringByField("word");
         String output = word + "!!!";
-        _collector.emit(tuple, new Values(output));
-        _collector.ack(tuple);
+        this.collector.emit(tuple, new Values(output));
+        this.collector.ack(tuple);
     }
 
     @Override
