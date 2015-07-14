@@ -25,6 +25,7 @@ public class WordsKafkaSpout extends KafkaSpout {
                                                 "/stormkafka",
                                                 id);  // ID for storing consumer offsets in Zookeeper
         kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
+        kafkaConfig.maxOffsetBehind = 0;
         return kafkaConfig;
     }
     
@@ -46,7 +47,7 @@ public class WordsKafkaSpout extends KafkaSpout {
     }
 
     public void nextTuple() {
-        logClient.log("Fetching next tuple");
+//        logClient.log("Fetching next tuple");
 
         super.nextTuple();
     }

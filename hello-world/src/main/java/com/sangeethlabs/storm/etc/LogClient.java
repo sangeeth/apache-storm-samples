@@ -27,7 +27,7 @@ public class LogClient {
             
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             
-            out.printf("%s: Connected", label);
+            out.printf("%s: Connected\n", label);
             out.flush();
         } catch(Exception e) {
             e.printStackTrace();
@@ -37,7 +37,7 @@ public class LogClient {
     public void disconnect() {
         if (socket!=null) {
             try {
-                out.printf("%s: Disconnecting", label);
+                out.printf("%s: Disconnecting\n", label);
                 out.flush();
                 
                 socket.close();
@@ -50,7 +50,7 @@ public class LogClient {
     public void log(String message) {
         if (out!=null) {
             try {
-                out.printf(message);
+                out.println(message);
                 out.flush();
             } catch(Exception e) {
                 e.printStackTrace();

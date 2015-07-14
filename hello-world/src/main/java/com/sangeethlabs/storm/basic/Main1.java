@@ -29,7 +29,7 @@ public class Main1 {
 
         LocalCluster cluster = new LocalCluster();
         cluster.submitTopology("test", conf, topology);
-        Utils.sleep(10000);
+        Utils.sleep(30000);
         cluster.killTopology("test");
         cluster.shutdown();
     }
@@ -41,14 +41,14 @@ public class Main1 {
                           new WordsKafkaSpout(/*logServerHost=*/"192.168.59.3",
                                                /*kafkaHost=*/"192.168.59.103", 
                                                /*topic=*/"words-stream", 
-                                               /*id=*/"helloworld-main4") , 
+                                               /*id=*/"helloworld-main1") , 
                         1);
         builder.setBolt("word", new WordBolt(), 1).shuffleGrouping("spout");
         builder.setBolt("exclaim1", new ExclamationBolt(), 1).shuffleGrouping("word");
         builder.setBolt("filter", new WordFilterBolt(/*The word to be filter from processing is */ "using"), 1).shuffleGrouping("exclaim1");
         builder.setBolt("exclaim2", new ExclamationBolt(), 1).shuffleGrouping("filter");
 //        builder.setBolt("notify", new XmppBolt(), 1).shuffleGrouping("exclaim2");
-        builder.setBolt("logger", new LoggerBolt(/*Host IP*/"192.168.59.3"), 1).shuffleGrouping("word");
+        builder.setBolt("logger", new LoggerBolt(/*Host IP*/"192.168.59.3"), 1).shuffleGrouping("exclaim2");
         return builder.createTopology();
     }
 }

@@ -12,7 +12,7 @@ public class WordsKafkaProducer {
         Properties props = new Properties();
         props.put("metadata.broker.list", "192.168.59.103:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
-        props.put("request.required.acks", "0");
+//        props.put("request.required.acks", "1");
  
         ProducerConfig config = new ProducerConfig(props);
         
