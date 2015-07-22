@@ -14,11 +14,12 @@ public class Main {
         TopologyBuilder builder = new TopologyBuilder();
 
         String[] words = new String[] { "hello", "world", "using", "apache", "storm" };
-        builder.setSpout("word", new WordSpout(words), 10);
-        builder.setBolt("exclaim1", new ExclamationBolt(), 3).shuffleGrouping("word");
+        builder.setSpout("word", new WordSpout(words), 1);
+        builder.setBolt("exclaim1", new ExclamationBolt(), 2).shuffleGrouping("word");
         builder.setBolt("filter", new WordFilterBolt(/*The word to be filter from processing is */ "using"), 2).shuffleGrouping("exclaim1");
         builder.setBolt("exclaim2", new ExclamationBolt(), 2).shuffleGrouping("filter");
-        builder.setBolt("printer", new PrinterBolt(), 3).shuffleGrouping("exclaim2");
+        //builder.setBolt("printer", new PrinterBolt(), 3).shuffleGrouping("exclaim2");
+        builder.setBolt("logger", new LoggerBolt(/*Host IP*/"192.168.59.3"), 5).shuffleGrouping("exclaim2");
         StormTopology topology = builder.createTopology();
         
         Config conf = new Config();
