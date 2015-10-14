@@ -10,7 +10,7 @@ public class WordsKafkaProducer {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("metadata.broker.list", "192.168.59.103:9092");
+        props.put("metadata.broker.list", "10.83.27.200:9092,10.83.27.221:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
 //        props.put("request.required.acks", "1");
  

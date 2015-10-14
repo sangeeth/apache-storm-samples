@@ -35,7 +35,7 @@ A sample Terminal output is as shown below.
 
 Now you are ready to deploy the Main4 Topology to Storm Cluster using the following command
 
-    storm jar ./target/hello-world-0.0.1-SNAPSHOT-jar-with-dependencies.jar com.sangeethlabs.storm.basic.Main4 192.168.59.103 
+    storm jar ./target/hello-world-0.0.1-SNAPSHOT-jar-with-dependencies.jar com.sangeethlabs.storm.basic.Main4 10.83.27.200 
     
 ## Running ``WordsKafkaProducer``
 

@@ -13,9 +13,8 @@ import backtype.storm.utils.Utils;
  * This example works only on local Storm cluster.
  */
 public class Main1 {
-    private static final List<String> ZOOKEEPER_SERVERS=Arrays.asList("192.168.59.103");
-    private static final String NIMBUS_HOST="192.168.59.103";
-    private static final String LOG_SERVER_HOST="192.168.59.3";
+    private static final List<String> ZOOKEEPER_SERVERS=Arrays.asList("10.83.27.200,10.83.27.221");
+    private static final String LOG_SERVER_HOST="10.127.150.217";
     public static void main(String[] args) throws Exception {
         StormTopology topology = createTopology();
         
@@ -26,10 +25,6 @@ public class Main1 {
 //        conf.put(XmppBolt.XMPP_SERVER, "192.168.59.103");
 //        conf.put(XmppBolt.XMPP_TO, "bose@domain.local");
         conf.put(Config.TOPOLOGY_DEBUG, true);
-        conf.put(Config.NIMBUS_HOST, NIMBUS_HOST);
-        conf.put(Config.NIMBUS_THRIFT_PORT, 6627);
-        conf.put(Config.STORM_ZOOKEEPER_PORT, 2181);
-        conf.put(Config.STORM_ZOOKEEPER_SERVERS, ZOOKEEPER_SERVERS);
 
         LocalCluster cluster = new LocalCluster();
         cluster.submitTopology("test", conf, topology);
