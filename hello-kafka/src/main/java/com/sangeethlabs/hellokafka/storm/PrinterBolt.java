@@ -1,10 +1,9 @@
 package com.sangeethlabs.hellokafka.storm;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.sangeethlabs.hellokafka.common.Message;
 
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
@@ -18,24 +17,11 @@ public class PrinterBolt extends BaseBasicBolt {
 
     @Override
     public void execute(Tuple tuple, BasicOutputCollector collector) {
-        byte [] bytes = (byte[])tuple.getValueByField("message");
-        try {
-            logger.info("Value: {}", toObject(bytes));
-        } catch (Exception e) {
-            logger.error("Failed to parse the message", e);
-        }
+        Message message = (Message)tuple.getValueByField("message");
+        logger.info("PRINTER: {}", message);
     }
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer ofd) {
     }
-    
-    private static Object toObject(byte[] bytes) throws Exception {
-        Object object = null;
-        ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
-        ObjectInputStream in = new ObjectInputStream(bin);
-        object = in.readObject();
-        in.close();
-        return object;
-    }    
 }
